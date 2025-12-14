@@ -18,7 +18,8 @@ router.post('/register', (req, res) => {
     const result = insertUser.run(username, hashedPassword);
 
     const defaultTodo = `Hello! Add your first todo!`;
-    const insertTodo = db.prepare(`INSERT INTO todos (user_id, task) VALUES (?, ?)`);
+    const insertTodo = db.prepare(`INSERT INTO todos (user_id, task)
+    VALUES (?, ?)`);
     insertTodo.run(result.lastInsertRowid, defaultTodo);
 
     //create a token
@@ -35,7 +36,32 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  console.log('login');
+  const { username, password } = req.body;
+
+  try {
+    const getUser = db.prepare('SELECT * FROM users WHERE username = ?');
+    const user = getUser.get(username);
+
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
+    console.log('passwordIsValid=', passwordIsValid);
+    if (!passwordIsValid) {
+      return res.status(401).send({ message: 'Invalid password' });
+    }
+
+    console.log(user);
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: '24h',
+    });
+    res.json({ token });
+  } catch (error) {
+    console.log(error.message);
+    res.sendStatus(503);
+  }
 });
 
 export default router;
