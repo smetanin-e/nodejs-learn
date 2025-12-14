@@ -31,8 +31,6 @@ router.post('/register', (req, res) => {
     console.log(error.message);
     res.sendStatus(503);
   }
-
-  res.sendStatus(201);
 });
 
 router.post('/login', (req, res) => {

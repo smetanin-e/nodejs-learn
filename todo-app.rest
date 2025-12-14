@@ -19,3 +19,30 @@ Content-Type: application/json
     "username": "esmet92@yandex.ru",
     "password": "123123123"
 }
+
+### Fetch all todos GET /TODOS (protected)
+GET http://localhost:5000/todos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzMyMTQ1LCJleHAiOjE3NjU4MTg1NDV9.leTnPxhx9G29jbReWt8JpEy1K7T5ik712xaxWbNJzRQ
+
+
+### Create a new todo POST /TODO (protected)
+POST http://localhost:5000/todos
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzMyMTQ1LCJleHAiOjE3NjU4MTg1NDV9.leTnPxhx9G29jbReWt8JpEy1K7T5ik712xaxWbNJzRQ
+Content-Type: application/json
+
+{
+    "task": "Finish coding the projects"
+}
+
+### Update a new todo PUT /TODO/:ID (protected)
+PUT http://localhost:5000/todos/2?page=4
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzMyMTQ1LCJleHAiOjE3NjU4MTg1NDV9.leTnPxhx9G29jbReWt8JpEy1K7T5ik712xaxWbNJzRQ
+Content-Type: application/json
+
+{
+    "completed": 1
+}
+
+### Delete a new todo DELETE /TODO/:ID (protected)
+DELETE http://localhost:5000/todos/2
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzY1NzMyMTQ1LCJleHAiOjE3NjU4MTg1NDV9.leTnPxhx9G29jbReWt8JpEy1K7T5ik712xaxWbNJzRQ
